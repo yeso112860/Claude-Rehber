@@ -10,12 +10,20 @@
       "Bash(npm install)",
       "Bash(npm run build)",
       "Bash(npx tsc --noEmit)",
-      "Bash(curl *localhost*)"
+      "Bash(curl *localhost*)",
+      "Bash(git status)",
+      "Bash(git diff*)",
+      "Bash(git add*)",
+      "Bash(git commit*)"
     ],
     "deny": [
       "Bash(rm -rf *)",
       "Bash(npm publish*)",
-      "Bash(git push*)"
+      "Bash(git push*)",
+      "Bash(git rebase*)",
+      "Bash(git reset --hard*)",
+      "Bash(DROP TABLE*)",
+      "Bash(DELETE FROM*)"
     ]
   },
   "hooks": {
@@ -25,7 +33,18 @@
         "hooks": [
           {
             "type": "command",
-            "command": "if echo \"$TOOL_INPUT\" | grep -qE '(rm -rf|DROP TABLE|DELETE FROM.*WHERE 1|shutdown)'; then echo 'TEHLIKELI KOMUT ENGELLENDI' >&2; exit 2; fi"
+            "command": "if echo \"$TOOL_INPUT\" | grep -qE '(rm -rf|DROP TABLE|DELETE FROM.*WHERE 1=1|shutdown|format c)'; then echo 'TEHLIKELI KOMUT ENGELLENDI' >&2; exit 2; fi"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo \"Degistirilen dosya: $TOOL_RESULT\" >> progress.md"
           }
         ]
       }
