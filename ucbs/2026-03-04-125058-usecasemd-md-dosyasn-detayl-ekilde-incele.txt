@@ -1,0 +1,617 @@
+
+╭─── Claude Code v2.1.66 ──────────────────────────────────────────────────────╮
+│                                                    │ Tips for getting        │
+│                Welcome back Mustafa!               │ started                 │
+│                                                    │ Run /init to create a … │
+│                       ▐▛███▜▌                      │ ─────────────────────── │
+│                      ▝▜█████▛▘                     │ Recent activity         │
+│                        ▘▘ ▝▝                       │ No recent activity      │
+│                                                    │                         │
+│      Opus 4.6 · Claude Max ·                       │                         │
+│      m's Organization     │                         │
+│                ~/ornek-calisma/ucbs                │                         │
+╰──────────────────────────────────────────────────────────────────────────────╯
+
+❯ @UseCase.md md dosyasını detaylı şekilde incele, .net core 9.0, angular   
+  olacak şekilde bana kural setlerini, tekrar eden yapılarda skill          
+  yeteneklerini, gerekiyorsa code review ve security için agents yapısını   
+  oluştur bana karar almadan önce sorular sorabilirsin                      
+
+⏺ Read 2 files (ctrl+o to expand)
+
+⏺ Dosya çok büyük, parçalar halinde okuyacağım.
+
+⏺ Searched for 3 patterns, read 1 file (ctrl+o to expand)
+
+⏺ UseCase.md'yi inceledim. 81 use case, 13 modül, karmaşık iş kuralları ve
+  workflow'lar içeren bir e-İzin projesi. Karar almadan önce birkaç soru sormam
+  gerekiyor:
+
+⏺ User answered Claude's questions:
+  ⎿  · .NET Core 9.0 backend mimarisi için hangi yaklaşımı tercih 
+     ediyorsunuz? → Clean Architecture (Recommended)
+     · Angular frontend için hangi state management ve UI framework'ü 
+     kullanılacak? → Angular Signals + PrimeNG
+     · Veritabanı ve ORM tercihiniz nedir? → PostgreSQL + EF Core 
+     (Recommended)
+     · Kimlik doğrulama (authentication) için hangi yöntem kullanılacak? → 
+     JWT olacak sadece
+
+⏺ User answered Claude's questions:
+  ⎿  · Proje solution yapısı nasıl olsun? (Modül bazlı mı yoksa katman 
+     bazlı mı?) → Katman bazlı (Recommended)
+     · Use case'lerden kod üretirken hangi çıktıları istiyorsunuz? → Full 
+     stack (backend + frontend)
+     · Test stratejisi tercihiniz? → Şimdilik test yok
+
+⏺ Tercihler net oldu. Şimdi yapılandırmayı tasarlıyorum.
+
+⏺ Plan(Design Claude config for e-Izin) Sonnet 4.6
+  ⎿  Done (8 tool uses · 66.3k tokens · 17m 19s)
+  (ctrl+o to expand)
+
+⏺ Read 1 file (ctrl+o to expand)
+
+⏺ Bash(cat /Users/karademir/.claude/projects/-Users-karademir-ornek-calisma-ucbs
+      /b4edc003-c489-41d1-b91e-14cb86e05438/tool-results/toolu_01998VgDvi89C9ah7
+      R5sFvkr.json…)
+  ⎿  I have all the context I need. Now I'll provide the complete, detailed
+      design for the .NET Core / Angular version of the e-İzin Claude Code
+     configuration.
+     … +222 lines (ctrl+o to expand)
+
+⏺ Bash(cat /Users/karademir/.claude/projects/-Users-karademir-ornek-calisma-ucbs
+      /b4edc003-c489-41d1-b91e-14cb86e05438/tool-results/toolu_01998VgDvi89C9ah7
+      R5sFvkr.json…)
+  ⎿  return Result<BasvuruDto>.Success(dto);
+     return Result<BasvuruDto>.Failure("Başvuru bulunamadı");
+     return Result<BasvuruDto>.Failure(DomainErrors.Basvuru.NotFound);
+     … +123 lines (ctrl+o to expand)
+
+⏺ Bash(cat /Users/karademir/.claude/projects/-Users-karademir-ornek-calisma-ucbs
+      /b4edc003-c489-41d1-b91e-14cb86e05438/tool-results/toolu_01998VgDvi89C9ah7
+      R5sFvkr.json…)
+  ⎿  ---
+
+     ### 2.3 Migration Kuralları
+     … +413 lines (ctrl+o to expand)
+
+⏺ Read 2 files (ctrl+o to expand)
+
+⏺ Tüm tasarımı inceledim. Şimdi plan dosyasını yazıyorum.
+
+⏺ Updated plan
+  ⎿  /plan to preview
+
+⏺ Plan hazır. Toplam 16 dosya oluşturulacak: CLAUDE.md, 4 rule, 3 agent, 5
+  skill, settings.json, .mcp.json. Her dosyanın içeriği Plan agent tarafından
+  detaylı olarak tasarlandı.
+
+⏺ User approved Claude's plan
+  ⎿  Plan saved to: ~/.claude/plans/shimmering-baking-prism.md · /plan to 
+     edit
+     e-İzin .NET Core 9.0 + Angular 18 - Claude Code Yapılandırma Planı
+
+     Context
+
+     e-İzin projesi (81 use case, 13 modül) için .NET Core 9.0 Clean
+     Architecture + Angular 18 Signals + PrimeNG stack'inde Claude Code
+     yapılandırması oluşturulacak. Amaç: tekrar eden kod üretim
+     pattern'lerini skill'lerle otomatikleştirmek, kod kalitesini
+     agent'larla denetlemek, kurallarla tutarlılığı sağlamak.
+
+     Teknoloji kararları: Clean Architecture (CQRS + MediatR), Angular
+     Signals + PrimeNG, PostgreSQL + EF Core, JWT auth, katman bazlı
+     solution, şimdilik test yok.
+
+     Oluşturulacak Dosyalar
+
+     Hedef dizin: eizin-solution/ (yeni proje kökü)
+
+     1. CLAUDE.md (Ana proje rehberi)
+
+     - Proje yapısı, modül tablosu, üretim sırası
+     - Aktör listesi, Clean Architecture katman bağımlılığı
+     - Hızlı başlatma komutları, iş kuralları özeti
+     - progress.md pattern açıklaması
+
+     2. .claude/rules/ (4 dosya)
+
+     Dosya: backend.md
+     Glob: **/*.cs
+     İçerik: Clean Architecture katman sorumlulukları, C# 12 standartları,
+       Entity/Handler/Result pattern şablonları, namespace yapısı
+     ────────────────────────────────────────
+     Dosya: frontend.md
+     Glob: **/*.ts, **/*.html, **/*.scss
+     İçerik: Standalone component, Signals, PrimeNG, Reactive Forms,
+     TypeScript
+       strict, @if/@for control flow
+     ────────────────────────────────────────
+     Dosya: migration.md
+     Glob: **/Migrations/**, **/*DbContext*
+     İçerik: Migration adlandırma, EF konfigürasyon şablonu, PostgreSQL
+     schema
+       (modül bazlı), BaseEntity, veri tipi standartları
+     ────────────────────────────────────────
+     Dosya: api.md
+     Glob: **/*Controller.cs
+     İçerik: RESTful endpoint adlandırma, Controller yapısı,
+     ApiResponse<T>,
+       yetkilendirme rolleri, MediatR pattern
+
+     3. .claude/agents/ (3 dosya)
+
+     ┌───────────────────────┬───────────┬─────────────────────────────────
+     ────┐
+     │         Agent         │  Araçlar  │                Görev
+         │
+     ├───────────────────────┼───────────┼─────────────────────────────────
+     ────┤
+     │                       │ Read,     │ Clean Architecture ihlali,
+     SOLID,   │
+     │ code-review.md        │ Glob,     │ async/await, Entity kapsülleme,
+         │
+     │                       │ Grep      │ Angular Signals/Standalone
+         │
+     │                       │           │ kontrolleri
+         │
+     ├───────────────────────┼───────────┼─────────────────────────────────
+     ────┤
+     │                       │ Read,     │ OWASP Top 10, JWT güvenliği,
+     IDOR,  │
+     │ security.md           │ Glob,     │ XSS, SQL injection, e-imza/belge
+         │
+     │                       │ Grep      │ güvenliği, audit log, brute
+     force   │
+     ├───────────────────────┼───────────┼─────────────────────────────────
+     ────┤
+     │                       │ Read,     │ .csproj referans grafı,
+     namespace   │
+     │ architecture-guard.md │ Glob,     │ ihlali taraması, katman
+         │
+     │                       │ Grep,     │ bağımlılığı, Angular modül
+         │
+     │                       │ Bash      │ izolasyonu
+         │
+     └───────────────────────┴───────────┴─────────────────────────────────
+     ────┘
+
+     4. .claude/skills/ (5 dosya)
+
+     ┌─────────────┬──────────────┬────────────────────────────────────────
+     ────┐
+     │    Skill    │   Kullanım   │                   Çıktı
+         │
+     ├─────────────┼──────────────┼────────────────────────────────────────
+     ────┤
+     │             │              │ Full stack: Entity → DTO →
+         │
+     │ usecase.md  │ /usecase     │ Command/Query+Handler → Validator →
+         │
+     │             │ UC-BSV-001   │ Controller → Migration → Angular
+         │
+     │             │              │ model+service+component
+         │
+     ├─────────────┼──────────────┼────────────────────────────────────────
+     ────┤
+     │             │              │ Modüldeki tüm UC'leri sırayla işler,
+         │
+     │ modul.md    │ /modul BSV   │ bağımlılık kontrolü yapar, DI kaydı
+     özeti  │
+     │             │              │ çıkarır
+         │
+     ├─────────────┼──────────────┼────────────────────────────────────────
+     ────┤
+     │ entity.md   │ /entity      │ Domain Entity + EF Config + Repository
+         │
+     │             │ Basvuru bsv  │ interface/impl + DbContext kaydı
+         │
+     ├─────────────┼──────────────┼────────────────────────────────────────
+     ────┤
+     │             │ /endpoint    │ CQRS endpoint seti: 5 Query/Command +
+         │
+     │ endpoint.md │ Basvuru bsv  │ Handler + Validator + Controller action
+      +  │
+     │             │              │ Angular service
+         │
+     ├─────────────┼──────────────┼────────────────────────────────────────
+     ────┤
+     │             │ /form        │ Angular Reactive Form + PrimeNG
+         │
+     │ form.md     │ BasvuruForm  │ bileşenleri + validation + submit logic
+         │
+     │             │ bsv          │
+         │
+     └─────────────┴──────────────┴────────────────────────────────────────
+     ────┘
+
+     5. .claude/settings.json
+
+     - İzin kuralları (allow/deny): proje dosyalarına yazma, dotnet/ng
+     komutları, git
+     - Hooks: Migration düzenleme engeli, tehlikeli komut bloklama, session
+      başında ortam kontrolü, yazma sonrası prettier/build
+
+     6. .mcp.json
+
+     - PostgreSQL MCP server (veritabanı sorgulama)
+     - GitHub MCP server (PR/issue yönetimi)
+
+     Uygulama Sırası
+
+     1. eizin-solution/ dizini oluştur
+     2. CLAUDE.md yaz
+     3. .claude/rules/ → backend.md, frontend.md, migration.md, api.md
+     4. .claude/agents/ → code-review.md, security.md,
+     architecture-guard.md
+     5. .claude/skills/ → usecase.md, modul.md, entity.md, endpoint.md,
+     form.md
+     6. .claude/settings.json yaz
+     7. .mcp.json yaz
+
+     Doğrulama
+
+     - Tüm dosyaların varlığını ls -R eizin-solution/.claude/ ile kontrol
+     et
+     - Rules dosyalarındaki glob pattern'lerinin doğruluğunu kontrol et
+     - Skills dosyalarındaki UseCase.md path referansının doğru olduğunu
+     kontrol et
+     - settings.json'ın geçerli JSON olduğunu python3 -m json.tool ile
+     doğrula
+
+⏺ Başlıyorum. Önce dizin yapısını oluşturup sonra tüm dosyaları paralel olarak
+  yazacağım.
+
+⏺ Bash(mkdir -p /Users/karademir/ornek-calisma/ucbs/eizin-solution/.claude/{rule
+      s,agents,skills})
+  ⎿  Done
+
+⏺ Write(eizin-solution/CLAUDE.md)
+  ⎿  Wrote 108 lines to eizin-solution/CLAUDE.md
+       1 # e-İzin Sistemi
+       2 
+       3 Çevre ve Şehircilik Bakanlığı e-İzin/Lisans başvuru ve değerlend
+         irme sistemi.
+       4 Full-stack: .NET Core 9.0 Clean Architecture API + Angular 18 SP
+         A.
+       5 
+       6 ## Proje Yapısı
+       7 
+       8 ```
+       9 eizin-solution/
+      10 ├── eIzin.Domain/          # Entity, ValueObject, DomainEvent, E
+         num, Exception
+     … +98 lines (ctrl+o to expand)
+
+⏺ Write(eizin-solution/.claude/rules/backend.md)
+  ⎿  Wrote 130 lines to eizin-solution/.claude/rules/backend.md
+       1 ---
+       2 globs:
+       3   - "**/*.cs"
+       4 ---
+       5 
+       6 # .NET Core Backend Kuralları
+       7 
+       8 ## Clean Architecture - Katman Sorumlulukları
+       9 
+      10 ### eIzin.Domain
+     … +120 lines (ctrl+o to expand)
+
+⏺ Write(eizin-solution/.claude/rules/frontend.md)
+  ⎿  Wrote 163 lines to eizin-solution/.claude/rules/frontend.md
+       1 ---
+       2 globs:
+       3   - "**/*.ts"
+       4   - "**/*.html"
+       5   - "**/*.scss"
+       6 ---
+       7 
+       8 # Angular 18+ Frontend Kuralları
+       9 
+      10 ## Teknoloji
+     … +153 lines (ctrl+o to expand)
+
+⏺ Write(eizin-solution/.claude/rules/migration.md)
+  ⎿  Wrote 84 lines to eizin-solution/.claude/rules/migration.md
+      1 ---
+      2 globs:
+      3   - "**/Migrations/**"
+      4   - "**/*DbContext*"
+      5 ---
+      6 
+      7 # EF Core Migration Kuralları
+      8 
+      9 ## TEMEL KURAL: Migration dosyaları ASLA elle düzenlenmez
+     … +74 lines (ctrl+o to expand)
+
+⏺ Write(eizin-solution/.claude/rules/api.md)
+  ⎿  Wrote 114 lines to eizin-solution/.claude/rules/api.md
+       1 ---
+       2 globs:
+       3   - "**/*Controller.cs"
+       4 ---
+       5 
+       6 # API Katmanı Kuralları
+       7 
+       8 ## Controller Yapısı
+       9 
+      10 ```csharp
+     … +104 lines (ctrl+o to expand)
+  ⎿  Found 3 new diagnostic issues in 3 files (ctrl+o to expand)
+
+⏺ Diagnostik uyarıları var - globs yerine doğru frontmatter formatını kullanmam
+  gerekiyor. Rules dosyalarını düzelteceğim. Şimdi agent ve skill dosyalarını
+  yazıyorum, sonra rules'ı düzelteceğim.
+
+⏺ Write(eizin-solution/.claude/agents/code-review.md)
+  ⎿  Wrote 46 lines to eizin-solution/.claude/agents/code-review.md
+       1 Sana verilen kodu veya modül dizinini incele ve aşağıdaki kontro
+         l listesini uygula:
+       2 
+       3 ## Clean Architecture Kontrolleri
+       4 
+       5 1. **Katman Bağımlılığı İhlali**
+       6    - Domain'de Application/Infrastructure/API referansı var mı?
+       7    - Application'da Infrastructure/API referansı var mı?
+       8    - `using` direktiflerini tara: `EIzin.Infrastructure.*` Appli
+         cation'da geçiyor mu?
+       9 
+      10 2. **Sorumluluk İhlali**
+     … +36 lines (ctrl+o to expand)
+
+⏺ Write(eizin-solution/.claude/agents/security.md)
+  ⎿  Wrote 49 lines to eizin-solution/.claude/agents/security.md
+      1 e-İzin sisteminin güvenlik denetimini yap:
+      2 
+      3 ## 1. Kimlik Doğrulama ve JWT
+      4 
+      5 - JWT token süresi konfigürasyonda mı? (hard-coded değil)
+      6 - Refresh token mekanizması var mı?
+      7 - Token imzalama anahtarı environment variable'dan mı okunuyor?
+      8 - `[AllowAnonymous]` gereksiz kullanım var mı?
+      9 - Hassas endpoint'lerde `[Authorize]` attribute eksik mi?
+     … +39 lines (ctrl+o to expand)
+
+⏺ Write(eizin-solution/.claude/agents/architecture-guard.md)
+  ⎿  Wrote 44 lines to eizin-solution/.claude/agents/architecture-guard.md
+       1 Solution'ın mimari bütünlüğünü denetle:
+       2 
+       3 ## Proje Referans Grafı
+       4 
+       5 `.csproj` dosyalarını oku ve referans grafiğini çıkar:
+       6 
+       7 **İzin verilen:**
+       8 - eIzin.Domain → (hiçbir proje)
+       9 - eIzin.Application → eIzin.Domain
+      10 - eIzin.Infrastructure → eIzin.Domain, eIzin.Application
+     … +34 lines (ctrl+o to expand)
+  ⎿  Found 1 new diagnostic issue in 1 file (ctrl+o to expand)
+
+⏺ Şimdi skill dosyalarını yazıyorum.
+
+⏺ Write(eizin-solution/.claude/skills/usecase.md)
+  ⎿  Wrote 113 lines to eizin-solution/.claude/skills/usecase.md
+      1 ---
+      2 name: usecase
+      3 description: "UseCase.md'den belirli bir UC kodunu okur ve tam st
+        ack kod üretir. Kullanım: /usecase UC-BSV-001"
+      4 user_invocable: true
+      5 ---
+      6 
+      7 Verilen Use Case kodunu (örnek: UC-BSV-001) aşağıdaki adımlarla i
+        şle:
+      8 
+      9 ## ADIM 0: Başlangıç
+     … +103 lines (ctrl+o to expand)
+
+⏺ Write(eizin-solution/.claude/skills/modul.md)
+  ⎿  Wrote 85 lines to eizin-solution/.claude/skills/modul.md
+      1 ---
+      2 name: modul
+      3 description: "Bir modüldeki tüm use case'leri sırayla işler ve ta
+        m stack kod üretir. Kullanım: /modul BSV"
+      4 user_invocable: true
+      5 ---
+      6 
+      7 Verilen modül kodunu (örnek: BSV) işle:
+      8 
+      9 ## ADIM 0: Modül Analizi
+     … +75 lines (ctrl+o to expand)
+
+⏺ Write(eizin-solution/.claude/skills/entity.md)
+  ⎿  Wrote 47 lines to eizin-solution/.claude/skills/entity.md
+      1 ---
+      2 name: entity
+      3 description: "Domain entity scaffold eder: Entity + EF Config + R
+        epository. Kullanım: /entity Basvuru bsv"
+      4 user_invocable: true
+      5 ---
+      6 
+      7 Verilen entity adını ve modül kodunu işle: `/entity {EntityAdi} {
+        modülkodu}`
+      8 
+      9 ## Oluşturulacak Dosyalar
+     … +37 lines (ctrl+o to expand)
+
+⏺ Write(eizin-solution/.claude/skills/endpoint.md)
+  ⎿  Wrote 40 lines to eizin-solution/.claude/skills/endpoint.md
+      1 ---
+      2 name: endpoint
+      3 description: "Var olan entity için CQRS endpoint seti oluşturur.
+        Kullanım: /endpoint Basvuru bsv"
+      4 user_invocable: true
+      5 ---
+      6 
+      7 Verilen entity ve modül için CQRS endpoint seti oluştur:
+      8 
+      9 ## Application Katmanı
+     … +30 lines (ctrl+o to expand)
+
+⏺ Write(eizin-solution/.claude/skills/form.md)
+  ⎿  Wrote 101 lines to eizin-solution/.claude/skills/form.md
+      1 ---
+      2 name: form
+      3 description: "Angular Reactive Form + PrimeNG ile form component
+        oluşturur. Kullanım: /form BasvuruForm bsv"
+      4 user_invocable: true
+      5 ---
+      6 
+      7 Verilen form adı ve modül kodu için Angular form component oluştu
+        r:
+      8 
+      9 ## Oluşturulacak Dosyalar
+     … +91 lines (ctrl+o to expand)
+
+⏺ Şimdi rules dosyalarındaki globs → paths düzeltmesini ve settings.json +
+  .mcp.json yazımını yapıyorum.
+
+⏺ Update(eizin-solution/.claude/rules/backend.md)
+  ⎿  Added 2 lines, removed 1 line
+      1  ---
+      2 -globs:                                                          
+      2 +description: ".NET Core backend kuralları - Clean Architecture,
+        +C# kodlama standartları"
+      3 +paths:
+      4    - "**/*.cs"
+      5  ---
+      6 
+
+⏺ Update(eizin-solution/.claude/rules/frontend.md)
+  ⎿  Added 2 lines, removed 1 line
+      1  ---
+      2 -globs:                                                          
+      2 +description: "Angular 18+ frontend kuralları - Standalone, Signa
+        +ls, PrimeNG"
+      3 +paths:
+      4    - "**/*.ts"
+      5    - "**/*.html"
+      6    - "**/*.scss"
+
+⏺ Update(eizin-solution/.claude/rules/migration.md)
+  ⎿  Added 2 lines, removed 1 line
+      1  ---
+      2 -globs:                                                          
+      2 +description: "EF Core migration kuralları - adlandırma, konfigür
+        +asyon, schema"
+      3 +paths:
+      4    - "**/Migrations/**"
+      5    - "**/*DbContext*"
+      6  ---
+
+⏺ Update(eizin-solution/.claude/rules/api.md)
+  ⎿  Added 2 lines, removed 1 line
+      1  ---
+      2 -globs:                                                          
+      2 +description: "API katmanı kuralları - RESTful, Controller yapısı
+        +, yetkilendirme"
+      3 +paths:
+      4    - "**/*Controller.cs"
+      5  ---
+      6 
+
+⏺ Write(eizin-solution/.claude/settings.json)
+  ⎿  Wrote 80 lines to eizin-solution/.claude/settings.json
+       1 {
+       2   "permissions": {
+       3     "allow": [
+       4       "Read",
+       5       "Glob",
+       6       "Grep",
+       7       "Bash(dotnet build*)",
+       8       "Bash(dotnet run*)",
+       9       "Bash(dotnet ef migrations add*)",
+      10       "Bash(dotnet ef database update*)",
+     … +70 lines (ctrl+o to expand)
+
+⏺ Write(eizin-solution/.mcp.json)
+  ⎿  Wrote 20 lines to eizin-solution/.mcp.json
+       1 {
+       2   "mcpServers": {
+       3     "postgres": {
+       4       "type": "stdio",
+       5       "command": "npx",
+       6       "args": ["-y", "@anthropic-ai/mcp-server-postgres"],
+       7       "env": {
+       8         "DATABASE_URL": "${DATABASE_URL}"
+       9       }
+      10     },
+     … +10 lines (ctrl+o to expand)
+
+⏺ Doğrulama yapıyorum.
+
+⏺ Bash(echo "=== Dosya Yapısı ===" && find
+      /Users/karademir/ornek-calisma/ucbs/eizin-solution -type f | sort && echo
+      "" && echo "=== settings.json JSON kontrolü ===" &…)
+  ⎿  === Dosya Yapısı ===
+     /Users/karademir/ornek-calisma/ucbs/eizin-solution/.claude/agents/arch
+     itecture-guard.md
+     … +19 lines (ctrl+o to expand)
+
+⏺ Tüm dosyalar başarıyla oluşturuldu. İşte özet:
+
+  Oluşturulan Yapılandırma (15 dosya)
+
+  eizin-solution/CLAUDE.md - Ana proje rehberi (modüller, aktörler, katman
+  kuralları, üretim sırası)
+
+  4 Rule (.claude/rules/):
+
+  ┌──────────────┬───────────────────┬───────────────────────────────────────┐
+  │    Dosya     │     Tetikleme     │                İçerik                 │
+  ├──────────────┼───────────────────┼───────────────────────────────────────┤
+  │              │                   │ Clean Architecture katman             │
+  │ backend.md   │ **/*.cs           │ sorumlulukları, C# 12,                │
+  │              │                   │ Entity/Handler/Result pattern         │
+  ├──────────────┼───────────────────┼───────────────────────────────────────┤
+  │ frontend.md  │ **/*.ts,html,scss │ Standalone Component, Signals,        │
+  │              │                   │ PrimeNG, @if/@for                     │
+  ├──────────────┼───────────────────┼───────────────────────────────────────┤
+  │ migration.md │ **/Migrations/**  │ EF Core adlandırma, schema (modül     │
+  │              │                   │ bazlı), BaseEntity                    │
+  ├──────────────┼───────────────────┼───────────────────────────────────────┤
+  │ api.md       │ **/*Controller.cs │ RESTful endpoint, ApiResponse<T>,     │
+  │              │                   │ yetkilendirme rolleri                 │
+  └──────────────┴───────────────────┴───────────────────────────────────────┘
+
+  3 Agent (.claude/agents/):
+
+  ┌────────────────────┬─────────────────────────────────────────────────────┐
+  │       Agent        │                        Görev                        │
+  ├────────────────────┼─────────────────────────────────────────────────────┤
+  │ code-review        │ Clean Architecture ihlali, SOLID, async/await,      │
+  │                    │ Entity kapsülleme                                   │
+  ├────────────────────┼─────────────────────────────────────────────────────┤
+  │ security           │ OWASP Top 10, JWT, IDOR, XSS, e-imza/belge          │
+  │                    │ güvenliği, audit log                                │
+  ├────────────────────┼─────────────────────────────────────────────────────┤
+  │ architecture-guard │ .csproj referans grafı, namespace ihlali, katman    │
+  │                    │ bağımlılığı                                         │
+  └────────────────────┴─────────────────────────────────────────────────────┘
+
+  5 Skill (.claude/skills/):
+
+  ┌────────────────────┬────────────────────────────────────────────────────┐
+  │       Komut        │                       Çıktı                        │
+  ├────────────────────┼────────────────────────────────────────────────────┤
+  │ /usecase           │ Full stack: Entity → Handler → Controller →        │
+  │ UC-BSV-001         │ Angular component                                  │
+  ├────────────────────┼────────────────────────────────────────────────────┤
+  │ /modul BSV         │ Modüldeki tüm UC'leri sırayla üretir               │
+  ├────────────────────┼────────────────────────────────────────────────────┤
+  │ /entity Basvuru    │ Entity + EF Config + Repository scaffold           │
+  │ bsv                │                                                    │
+  ├────────────────────┼────────────────────────────────────────────────────┤
+  │ /endpoint Basvuru  │ CQRS endpoint seti (5 action + Angular service)    │
+  │ bsv                │                                                    │
+  ├────────────────────┼────────────────────────────────────────────────────┤
+  │ /form BasvuruForm  │ PrimeNG form component + validation                │
+  │ bsv                │                                                    │
+  └────────────────────┴────────────────────────────────────────────────────┘
+
+  settings.json - İzinler, tehlikeli komut engelleme hook'ları, session başı
+  ortam kontrolü
+
+  .mcp.json - PostgreSQL + GitHub MCP server'ları
+
+✻ Baked for 25m 12s

@@ -1,0 +1,80 @@
+{
+  "permissions": {
+    "allow": [
+      "Read",
+      "Glob",
+      "Grep",
+      "Bash(dotnet build*)",
+      "Bash(dotnet run*)",
+      "Bash(dotnet ef migrations add*)",
+      "Bash(dotnet ef database update*)",
+      "Bash(dotnet ef migrations script*)",
+      "Bash(dotnet ef migrations list*)",
+      "Bash(cd eIzin.Angular && ng *)",
+      "Bash(cd eIzin.Angular && npm *)",
+      "Bash(git status)",
+      "Bash(git log *)",
+      "Bash(git diff *)",
+      "Bash(git add *)",
+      "Bash(git checkout -b *)",
+      "Write(eIzin.Domain/**/*.cs)",
+      "Write(eIzin.Application/**/*.cs)",
+      "Write(eIzin.Infrastructure/**/*.cs)",
+      "Write(eIzin.API/**/*.cs)",
+      "Write(eIzin.Angular/src/**/*.ts)",
+      "Write(eIzin.Angular/src/**/*.html)",
+      "Write(eIzin.Angular/src/**/*.scss)",
+      "Edit(eIzin.Domain/**/*.cs)",
+      "Edit(eIzin.Application/**/*.cs)",
+      "Edit(eIzin.Infrastructure/**/*.cs)",
+      "Edit(eIzin.API/**/*.cs)",
+      "Edit(eIzin.Angular/src/**/*.ts)",
+      "Edit(eIzin.Angular/src/**/*.html)",
+      "Edit(eIzin.Angular/src/**/*.scss)"
+    ],
+    "deny": [
+      "Bash(rm -rf *)",
+      "Bash(git push --force*)",
+      "Bash(dotnet ef database drop*)",
+      "Edit(**/appsettings.Production.json)",
+      "Write(**/appsettings.Production.json)",
+      "Edit(**/*.env)",
+      "Write(**/*.env)",
+      "Edit(**/secrets*)",
+      "Write(**/secrets*)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "FILE=$(jq -r '.tool_input.file_path // empty'); if echo \"$FILE\" | grep -q 'Migrations/'; then echo 'UYARI: Migration dosyalari elle duzenlenmemeli! Yeni migration olustur.' >&2; exit 2; fi"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "CMD=$(jq -r '.tool_input.command'); if echo \"$CMD\" | grep -qiE 'DROP TABLE|DROP DATABASE|TRUNCATE|database drop|git push.*--force|rm -rf /'; then echo 'Tehlikeli komut engellendi!' >&2; exit 2; fi"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '=== e-Izin Ortam Kontrolu ==='; dotnet --version 2>/dev/null | head -1; node -v 2>/dev/null; echo \"Branch: $(git branch --show-current 2>/dev/null)\"; test -f progress.md && echo '--- Devam Eden Gorev ---' && head -25 progress.md || echo 'Aktif gorev yok'"
+          }
+        ]
+      }
+    ]
+  }
+}

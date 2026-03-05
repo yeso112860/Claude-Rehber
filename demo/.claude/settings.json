@@ -1,0 +1,44 @@
+{
+  "permissions": {
+    "allow": [
+      "Read",
+      "Glob",
+      "Grep",
+      "Write",
+      "Edit",
+      "Bash(npm run dev)",
+      "Bash(npm install)",
+      "Bash(npm run build)",
+      "Bash(npx tsc --noEmit)",
+      "Bash(curl *localhost*)"
+    ],
+    "deny": [
+      "Bash(rm -rf *)",
+      "Bash(npm publish*)",
+      "Bash(git push*)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if echo \"$TOOL_INPUT\" | grep -qE '(rm -rf|DROP TABLE|DELETE FROM.*WHERE 1|shutdown)'; then echo 'TEHLIKELI KOMUT ENGELLENDI' >&2; exit 2; fi"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [ -f progress.md ]; then echo '⚠ DEVAM EDEN GOREV VAR: progress.md dosyasini oku ve kaldigin yerden devam et'; fi"
+          }
+        ]
+      }
+    ]
+  }
+}
